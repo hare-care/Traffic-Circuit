@@ -1,6 +1,6 @@
-module traffic_light(clk, light);
+module traffic_light(clk, rstb, light);
     /* Inputs Outputs */
-    input clk;
+    input clk, rstb;
     output reg [2:0] light;
 
     /* states */
@@ -16,7 +16,12 @@ module traffic_light(clk, light);
     end
 
     /* Next State logic */
-    always @(scurr) begin
+    always @(scurr or negedge rstb) begin
+        if (rstb == 1'b1) begin
+            scurr <= green;
+        end
+
+
         case(scurr)
             green: snext = flash_green;
             flash_green: snext = yellow;
@@ -26,7 +31,11 @@ module traffic_light(clk, light);
     end
 
     /* Output logic */
-    always @(scurr) begin
+    always @(scurr or negedge rstb) begin
+        if (rstb == 1'b1) begin
+            light <= green;
+        end
+        
         case(scurr)
             green: light = green;
             flash_green: light = flash_green;
