@@ -1,9 +1,9 @@
 `timescale 1ns/10ps
 
 module traffic_tb();
-    reg clk, rstb;
-    wire [1:0] output;
-    traffic_light my_light(.clk(clock), .rstb(reset), .light(output));
+    reg clk, reset;
+    wire [1:0] out;
+    traffic_light my_light(.clk(clk), .rstb(reset), .light(out));
 
     /* making clock */
     always begin
