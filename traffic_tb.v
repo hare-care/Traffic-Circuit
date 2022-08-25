@@ -16,7 +16,11 @@ module traffic_tb();
         reset <= 0;
         #1
         reset <= 1;
+        #1
+        reset <= 0;
         #21
+        reset <= 1;
+        #1
         reset <= 0;
         #10
         $finish;
